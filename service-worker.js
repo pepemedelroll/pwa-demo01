@@ -1,11 +1,11 @@
 var dataCacheName = 'template-pwa';
 var cacheName = 'template-pwa';
 var filesToCache = [
- "./index.html",
+ "./index.html",  
  "./styles/style.css"
 ];
 
-
+//
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
   e.waitUntil(
