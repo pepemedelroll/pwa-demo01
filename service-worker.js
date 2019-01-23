@@ -52,6 +52,7 @@ self.addEventListener('fetch', function(event) {
 Network falling back to the cache
 */
 self.addEventListener('fetch', function(event) {
+  console.log('pepe');
   event.respondWith(
     fetch(event.request).catch(function() {
       return caches.match(event.request);
