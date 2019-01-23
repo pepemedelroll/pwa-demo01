@@ -30,7 +30,7 @@ self.addEventListener('activate', function(e) {
   );
   return self.clients.claim();
 });
-
+/*
 self.addEventListener('fetch', function(event) {
   console.log('[Service Worker] Fetch', event.request.url);
   event.respondWith(
@@ -43,5 +43,17 @@ self.addEventListener('fetch', function(event) {
         return fetch(event.request);
       }
     )
+  );
+});
+*/
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.open('mysite-dynamic').then(function(cache) {
+      return fetch(event.request).then(function(response) {
+        cache.put(event.request, response.clone());
+        return response;
+      });
+    })
   );
 });
