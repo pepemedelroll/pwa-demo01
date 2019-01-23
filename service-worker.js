@@ -31,11 +31,17 @@ self.addEventListener('activate', function(e) {
   return self.clients.claim();
 });
 
-self.addEventListener('fetch', function(e) {
-  console.log('[Service Worker] Fetch', e.request.url);
-  e.respondWith(
-    caches.match(e.request).then(function(response) {
-      return response || fetch(e.request);
-    })
+self.addEventListener('fetch', function(event) {
+  console.log('[Service Worker] Fetch', event.request.url);
+  event.respondWith(
+    caches.match(event.request)
+      .then(function(response) {
+        // Cache hit - return response
+        if (response) {
+          return response;
+        }
+        return fetch(event.request);
+      }
+    )
   );
 });
