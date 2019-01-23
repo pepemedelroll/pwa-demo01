@@ -2,7 +2,6 @@ var dataCacheName = 'template-pwa';
 var cacheName = 'template-pwa';
 var filesToCache = [
  "./index.html",
- "./service-worker.js",
  "./styles/style.css"
 ];
 
