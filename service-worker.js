@@ -30,13 +30,15 @@ self.addEventListener('activate', function(e) {
   );
   return self.clients.claim();
 });
+
 /*
+Cache falling back to the network
+ */
+/*REMOVE
 self.addEventListener('fetch', function(event) {
   console.log('[Service Worker] Fetch', event.request.url);
   event.respondWith(
-    caches.match(event.request)
-      .then(function(response) {
-        // Cache hit - return response
+    caches.match(event.request).then(function(response) {
         if (response) {
           return response;
         }
@@ -45,15 +47,14 @@ self.addEventListener('fetch', function(event) {
     )
   );
 });
-*/
 
+/*
+Network falling back to the cache
+*/
 self.addEventListener('fetch', function(event) {
   event.respondWith(
-    caches.open('mysite-dynamic').then(function(cache) {
-      return fetch(event.request).then(function(response) {
-        cache.put(event.request, response.clone());
-        return response;
-      });
+    fetch(event.request).catch(function() {
+      return caches.match(event.request);
     })
   );
 });
