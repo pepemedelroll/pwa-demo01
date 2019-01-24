@@ -2,7 +2,7 @@ var dataCacheName = 'template-pwa';
 var cacheName = 'template-pwa';
 var filesToCache = [
  "./index.html",  
- "./styles/style.css?v=2"
+ "./styles/style.css"
 ];
 
 //
